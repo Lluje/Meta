@@ -10,13 +10,13 @@ public class Stack : MonoBehaviour
     public float moveRange = 3f;
     public float moveSpeed = 3f;
     public float fallSpeed = 2f;
+    public float stackHeight = 1.0f;
 
     private GameObject currentBlock;
     private GameObject lastBlock;
     private int stackCount = 0;
 
-    public Color prevColor;
-    public Color nextColor;
+    public FollowCameraY followCamera;
 
     void Start()
     {
@@ -34,6 +34,7 @@ public class Stack : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             PlaceBlock();
+            followCamera.MoveUp();
         }
     }
 
@@ -41,6 +42,11 @@ public class Stack : MonoBehaviour
     {
         Vector3 spawnPos = spawnPoint.position + Vector3.up * stackCount;
         currentBlock = Instantiate(blockPrefab, spawnPos, Quaternion.identity);
+
+        SpriteRenderer sr = currentBlock.GetComponent<SpriteRenderer>();
+        float t = Mathf.PingPong(stackCount * 0.1f, 1f);
+        Color color = Color.HSVToRGB(t, 0.8f, 1f);
+        sr.color = color;
     }
 
     void PlaceBlock()
@@ -91,37 +97,6 @@ public class Stack : MonoBehaviour
         Rigidbody2D rb = fallPiece.AddComponent<Rigidbody2D>();
         rb.gravityScale = 2f; // 낙하 속도 조절
         Destroy(fallPiece, 2.5f); // 2.5초 후 자동 제거
-    }
-
-    Color GetRandomColor()
-    {
-        float r = Random.Range(100f, 250f) / 255f;
-        float g = Random.Range(100f, 250f) / 255f;
-        float b = Random.Range(100f, 250f) / 255f;
-
-        return new Color(r, g, b);
-    }
-
-    void ColorChange(GameObject go)
-    {
-        Color applyColor = Color.Lerp(prevColor, nextColor, (stackCount % 11) / 10f);
-
-        Renderer rn = go.GetComponent<Renderer>();
-
-        if(rn == null)
-        {
-            Debug.Log("renderer is null");
-            return;
-        }
-
-        rn.material.color = applyColor;
-        Camera.main.backgroundColor = applyColor - new Color(0.1f, 0.1f, 0.1f);
-
-        if(applyColor.Equals(nextColor) == true)
-        {
-            prevColor = nextColor;
-            nextColor = GetRandomColor();
-        }
     }
 
     void Restart()
