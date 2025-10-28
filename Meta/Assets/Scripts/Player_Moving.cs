@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Windows;
+using UnityEngine.UI;
 
 public class Player_Moving : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class Player_Moving : MonoBehaviour
     private Animator animator;
 
     public bool isDead = false;
+    public GameObject Endbtn;
+
 
     void Start()
     {
@@ -27,6 +30,7 @@ public class Player_Moving : MonoBehaviour
         AutoMove();
         Jump();
     }
+
 
     // 오른쪽으로 자동 이동
     void AutoMove()
@@ -66,17 +70,12 @@ public class Player_Moving : MonoBehaviour
     {
         moveSpeed = 0; // 이동 정지
 
+        Endbtn.SetActive(true);
+
         if (animator != null)
         {
             animator.SetInteger("IsDie", 1);
             isDead = true;
         }
-
-        Restart();
-    }
-
-    void Restart()
-    {
-        SceneManager.LoadScene("MainScene");
     }
 }
