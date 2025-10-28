@@ -75,8 +75,6 @@ public class Stack : MonoBehaviour
         {
             Destroy(currentBlock);
             Panel.SetActive(true);
-
-            Restart();
         }
 
         float newSize = maxSize - overlap;
@@ -113,10 +111,5 @@ public class Stack : MonoBehaviour
     {
         scoreTxt.text = score.ToString();
         lastscoreTxt.text = score.ToString();
-    }
-
-    public void Restart()
-    {
-        SceneManager.LoadScene("MainScene");
     }
 }
