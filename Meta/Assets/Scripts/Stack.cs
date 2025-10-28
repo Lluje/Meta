@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Stack : MonoBehaviour
 {
@@ -11,6 +12,11 @@ public class Stack : MonoBehaviour
     public float moveSpeed = 3f;
     public float fallSpeed = 2f;
     public float stackHeight = 1.0f;
+
+    public Text scoreTxt;
+    int score = 0;
+    public GameObject Panel;
+    public Text lastscoreTxt;
 
     private GameObject currentBlock;
     private GameObject lastBlock;
@@ -56,6 +62,7 @@ public class Stack : MonoBehaviour
             currentBlock.transform.position = new Vector3(0, currentBlock.transform.position.y, 0);
             lastBlock = currentBlock;
             stackCount++;
+            AddScore(score++);
             SpawnBlock();
             return;
         }
@@ -67,6 +74,8 @@ public class Stack : MonoBehaviour
         if (overlap >= maxSize)
         {
             Destroy(currentBlock);
+            Panel.SetActive(true);
+
             Restart();
         }
 
@@ -86,6 +95,7 @@ public class Stack : MonoBehaviour
 
         lastBlock = currentBlock;
         stackCount++;
+        AddScore(score++);
         SpawnBlock();
     }
 
@@ -99,7 +109,13 @@ public class Stack : MonoBehaviour
         Destroy(fallPiece, 2.5f); // 2.5초 후 자동 제거
     }
 
-    void Restart()
+    public void AddScore(int score)
+    {
+        scoreTxt.text = score.ToString();
+        lastscoreTxt.text = score.ToString();
+    }
+
+    public void Restart()
     {
         SceneManager.LoadScene("MainScene");
     }

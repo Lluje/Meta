@@ -9,7 +9,7 @@ public class Warp_Moving : MonoBehaviour
     public float interactDistance = 2f;  // F키를 누를 수 있는 거리
 
     [Header("전환할 미니게임 씬 이름")]
-    public string miniGameSceneName = "MovingScene";
+    public string miniGameSceneName = "";
     private Transform player;
 
     void Start()

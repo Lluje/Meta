@@ -612,6 +612,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: WarpObject 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4658829082289409771, guid: 8789cb1cd5d79f24cac2821e29fbfd1a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4658829082289409771, guid: 8789cb1cd5d79f24cac2821e29fbfd1a, type: 3}
+      propertyPath: miniGameSceneName
+      value: StactScene
+      objectReference: {fileID: 0}
     - target: {fileID: 5089033879936449491, guid: 8789cb1cd5d79f24cac2821e29fbfd1a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.82
